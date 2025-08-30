@@ -1,6 +1,8 @@
 package jogo;
 
 import java.util.Scanner;
+
+import assets.PocaoDeCura;
 import racas.*;
 import classes.*;
 
@@ -9,6 +11,7 @@ public class Tabuleiro {
 	private boolean ativo;
 	Scanner sc = new Scanner(System.in);
 	Personagem p;
+	private PocaoDeCura pocao = new PocaoDeCura("s");
 
 	public Tabuleiro() {
 		ativo = false;
@@ -18,7 +21,13 @@ public class Tabuleiro {
 	public void novoJogo() {
 		ativo = true;
 		p = criarPersonagem(p);
+		p.coletarItem(pocao);
+		p.coletarItem(pocao);
+		p.coletarItem(pocao);
+		p.coletarItem(pocao);
+		p.setVida(3);
 		menuDoJogador();
+
 	}
 
 	public Personagem criarPersonagem(Personagem p) {
@@ -73,6 +82,7 @@ public class Tabuleiro {
 		if (ativo) {
 			while (ativo) {
 				System.out.println("O que você quer fazer?");
+
 				System.out.println("1. Abrir inventario | 2. Ir para Dungeon | 3. Encerrar o jogo ");
 				int opcao = sc.nextInt();
 				switch (opcao) {
@@ -90,6 +100,7 @@ public class Tabuleiro {
 					System.out.println("Nenhuma opção selecionada, escolha novamente");
 					break;
 				}
+
 			}
 
 		} else {
