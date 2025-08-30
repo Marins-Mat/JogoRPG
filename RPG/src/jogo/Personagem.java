@@ -40,6 +40,47 @@ public class Personagem {
 		inventario = new Item[5];
 	}
 
+	public void subirDeNivel() {
+		if (exp >= expMax && nivel < 20 && nivel>=1) {
+			int nivelAntigo = nivel;
+			int vidaAntiga=vidaMax;
+			int manaAntiga=manaMax;
+			int estaminaAntiga=estaminaMax;
+			nivel++;
+			System.out.println("Parabéns, seu nivel aumentou de " + nivelAntigo + " para --> " + nivel);
+			if (nivel < 5) {
+				expMax*=1.5;
+				vidaMax += 2;
+				manaMax += 2;
+				estaminaMax += 2;
+			} else if (nivel < 10) {
+				expMax*=2;
+				vidaMax += 3;
+				manaMax += 3;
+				estaminaMax += 3;
+			} else if (nivel == 10) {
+				expMax*=2.5;
+				vidaMax += 5;
+				manaMax += 5;
+				estaminaMax += 5;
+			} else if (nivel <= 15) {
+				expMax*=3;
+				vidaMax += 4;
+				manaMax += 4;
+				estaminaMax += 4;
+			} else if (nivel == 20) {
+				vidaMax += 7;
+				manaMax += 7;
+				estaminaMax += 7;
+				System.out.println("Parabéns, você atingiu o nivel maxímo");
+			}
+			System.out.println("Sua vida maxima aumentou de " + vidaAntiga + " para --> " + vidaMax);
+			System.out.println("Sua mana maxima aumentou de " + manaAntiga + " para --> " + manaMax);
+			System.out.println("Sua estamina maxima aumentou de " + estaminaAntiga + " para --> " + estaminaMax);
+		}
+
+	}
+	
 	public void abrirInventario() {
 		informacoesMenu();
 
@@ -138,7 +179,6 @@ public class Personagem {
 
 	}
 
-	
 	
 	public String getNome() {
 		return nome;
