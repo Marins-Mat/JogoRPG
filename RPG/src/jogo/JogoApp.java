@@ -7,6 +7,7 @@ public class JogoApp {
 		
 		
 		Tabuleiro t = new Tabuleiro();
+		
 		t.novoJogo();
 		
 	}

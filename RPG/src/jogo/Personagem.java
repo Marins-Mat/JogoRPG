@@ -1,7 +1,10 @@
 package jogo;
-
+import classes.*;
+import racas.*;
 public class Personagem {
 	private String nome;
+	private Raca raca;
+	private Classe classe;
 	private int vida;
 	private int vidaMax;
 	private int mana;
@@ -13,12 +16,14 @@ public class Personagem {
 	private int expMax;
 
 
-	public Personagem(String nome) {
-		super();
+	public Personagem(String nome, Raca raca, Classe classe) {
+		
 		this.nome = nome;
-		vidaMax = 10;
-		manaMax = 10;
-		estaminaMax = 10;
+		this.raca=raca;
+		this.classe=classe;
+		vidaMax = raca.getVidaMax()+classe.getVidaMax();
+		manaMax = raca.getManaMax()+classe.getManaMax();
+		estaminaMax = raca.getEstaminaMax()+classe.getEstaminaMax();
 		vida = vidaMax;
 		mana = manaMax;
 		estamina = estaminaMax;
@@ -30,6 +35,8 @@ public class Personagem {
 	public void abrirInventario() {
 		System.out.println("------Inventario------");
 		System.out.println("Nome : " + nome);
+		System.out.println("Raça : " + raca);
+		System.out.println("Classe : " + classe);
 		System.out.println("Nivel : " + nivel + "|| Exp: (" + exp + "/" + expMax + ")");
 		System.out.println("Vida : "  + "(" + vida + "/" + vidaMax + ")");
 		System.out.println("Mana : "  + "(" + mana + "/" + manaMax + ")");
@@ -134,4 +141,22 @@ public class Personagem {
 	public void setExpMax(int expMax) {
 		this.expMax = expMax;
 	}
+
+	public Raca getRaca() {
+		return raca;
+	}
+
+	public void setRaca(Raca raca) {
+		this.raca = raca;
+	}
+
+	public Classe getClasse() {
+		return classe;
+	}
+
+	public void setClasse(Classe classe) {
+		this.classe = classe;
+	}
+	
+	
 }
