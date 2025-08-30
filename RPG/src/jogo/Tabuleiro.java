@@ -25,6 +25,10 @@ public class Tabuleiro {
 		p.coletarItem(pocao);
 		p.coletarItem(pocao);
 		p.coletarItem(pocao);
+		p.setExp(1000);
+		
+		
+		
 		p.setVida(3);
 		menuDoJogador();
 
@@ -81,6 +85,7 @@ public class Tabuleiro {
 	public void menuDoJogador() {
 		if (ativo) {
 			while (ativo) {
+				
 				System.out.println("O que você quer fazer?");
 
 				System.out.println("1. Abrir inventario | 2. Ir para Dungeon | 3. Encerrar o jogo ");
@@ -88,6 +93,7 @@ public class Tabuleiro {
 				switch (opcao) {
 				case 1:
 					p.abrirInventario();
+					p.subirDeNivel();
 					break;
 				case 2:
 					System.out.println("Ainda vai ser implementado");
