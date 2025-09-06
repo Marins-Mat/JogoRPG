@@ -1,39 +1,29 @@
 package jogo;
 
 import java.util.Scanner;
-
 import assets.Item;
 import classes.*;
 import racas.*;
 
-public class Personagem {
+public class Personagem extends Entidade{
 	Scanner sc = new Scanner(System.in);
-
-	private String nome;
 	private Raca raca;
 	private Classe classe;
-	private int vida;
-	private int vidaMax;
-	private int mana;
-	private int manaMax;
-	private int estamina;
-	private int estaminaMax;
 	private int nivel;
 	private int exp;
 	private int expMax;
-	private Item inventario[];
+	private Item inventario[]; //Criar uma classe Inventario, com os metodos referentes ao inventario, semelhante a criação de uma ArrayList estudada na faculdade
 
 	public Personagem(String nome, Raca raca, Classe classe) {
-
-		this.nome = nome;
+		setNome(nome);
 		this.raca = raca;
 		this.classe = classe;
-		vidaMax = raca.getVidaMax() + classe.getVidaMax();
-		manaMax = raca.getManaMax() + classe.getManaMax();
-		estaminaMax = raca.getEstaminaMax() + classe.getEstaminaMax();
-		vida = vidaMax;
-		mana = manaMax;
-		estamina = estaminaMax;
+		setVidaMax(raca.getVidaMax() + classe.getVidaMax());
+		setManaMax( raca.getManaMax() + classe.getManaMax());
+		setEstaminaMax(raca.getEstaminaMax() + classe.getEstaminaMax());;
+		setVida(getVidaMax());
+		setMana(getManaMax());
+		setEstamina(getEstaminaMax());;
 		nivel = 1;
 		exp = 0;
 		expMax = 200;
@@ -43,40 +33,40 @@ public class Personagem {
 	public void subirDeNivel() {
 		if (exp >= expMax && nivel < 20 && nivel>=1) {
 			int nivelAntigo = nivel;
-			int vidaAntiga=vidaMax;
-			int manaAntiga=manaMax;
-			int estaminaAntiga=estaminaMax;
+			int vidaAntiga=getVidaMax();
+			int manaAntiga=getManaMax();
+			int estaminaAntiga=getEstaminaMax();
 			nivel++;
 			System.out.println("Parabéns, seu nivel aumentou de " + nivelAntigo + " para --> " + nivel);
 			if (nivel < 5) {
 				expMax*=1.5;
-				vidaMax += 2;
-				manaMax += 2;
-				estaminaMax += 2;
+				setVidaMax(vidaAntiga + 2);
+				setManaMax(manaAntiga + 2);
+				setEstaminaMax(estaminaAntiga+2);
 			} else if (nivel < 10) {
 				expMax*=2;
-				vidaMax += 3;
-				manaMax += 3;
-				estaminaMax += 3;
+				setVidaMax(vidaAntiga + 3);
+				setManaMax(manaAntiga + 3);
+				setEstaminaMax(estaminaAntiga+3);
 			} else if (nivel == 10) {
 				expMax*=2.5;
-				vidaMax += 5;
-				manaMax += 5;
-				estaminaMax += 5;
+				setVidaMax(vidaAntiga + 5);
+				setManaMax(manaAntiga + 5);
+				setEstaminaMax(estaminaAntiga+5);
 			} else if (nivel <= 15) {
 				expMax*=3;
-				vidaMax += 4;
-				manaMax += 4;
-				estaminaMax += 4;
+				setVidaMax(vidaAntiga + 4);
+				setManaMax(manaAntiga + 4);
+				setEstaminaMax(estaminaAntiga+4);
 			} else if (nivel == 20) {
-				vidaMax += 7;
-				manaMax += 7;
-				estaminaMax += 7;
+				setVidaMax(vidaAntiga + 7);
+				setManaMax(manaAntiga + 7);
+				setEstaminaMax(estaminaAntiga+7);
 				System.out.println("Parabéns, você atingiu o nivel maxímo");
 			}
-			System.out.println("Sua vida maxima aumentou de " + vidaAntiga + " para --> " + vidaMax);
-			System.out.println("Sua mana maxima aumentou de " + manaAntiga + " para --> " + manaMax);
-			System.out.println("Sua estamina maxima aumentou de " + estaminaAntiga + " para --> " + estaminaMax);
+			System.out.println("Sua vida maxima aumentou de " + vidaAntiga + " para --> " + getVidaMax());
+			System.out.println("Sua mana maxima aumentou de " + manaAntiga + " para --> " + getManaMax());
+			System.out.println("Sua estamina maxima aumentou de " + estaminaAntiga + " para --> " + getEstaminaMax());
 		}
 
 	}
@@ -95,13 +85,13 @@ public class Personagem {
 
 	private void informacoesMenu() {
 		System.out.println("------Inventario------");
-		System.out.println("Nome : " + nome);
+		System.out.println("Nome : " + getNome());
 		System.out.println("Raça : " + raca);
 		System.out.println("Classe : " + classe);
 		System.out.println("Nivel : " + nivel + "|| Exp: (" + exp + "/" + expMax + ")");
-		System.out.println("Vida : " + "(" + vida + "/" + vidaMax + ")");
-		System.out.println("Mana : " + "(" + mana + "/" + manaMax + ")");
-		System.out.println("Estamina : " + "(" + estamina + "/" + estaminaMax + ")");
+		System.out.println("Vida : " + "(" + getVida() + "/" + getVidaMax() + ")");
+		System.out.println("Mana : " + "(" + getMana() + "/" + getManaMax() + ")");
+		System.out.println("Estamina : " + "(" + getEstaminaMax() + "/" + getEstaminaMax() + ")");
 
 	}
 
@@ -179,63 +169,9 @@ public class Personagem {
 
 	}
 
-	
-	public String getNome() {
-		return nome;
+	public void menuBatalha() {
+		
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public int getVida() {
-		return vida;
-	}
-
-	public void setVida(int vida) {
-		this.vida = vida;
-	}
-
-	public int getVidaMax() {
-		return vidaMax;
-	}
-
-	public void setVidaMax(int vidaMax) {
-		this.vidaMax = vidaMax;
-	}
-
-	public int getMana() {
-		return mana;
-	}
-
-	public void setMana(int mana) {
-		this.mana = mana;
-	}
-
-	public int getManaMax() {
-		return manaMax;
-	}
-
-	public void setManaMax(int manaMax) {
-		this.manaMax = manaMax;
-	}
-
-	public int getEstamina() {
-		return estamina;
-	}
-
-	public void setEstamina(int estamina) {
-		this.estamina = estamina;
-	}
-
-	public int getEstaminaMax() {
-		return estaminaMax;
-	}
-
-	public void setEstaminaMax(int estaminaMax) {
-		this.estaminaMax = estaminaMax;
-	}
-
 	public int getNivel() {
 		return nivel;
 	}

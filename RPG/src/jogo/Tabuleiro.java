@@ -1,17 +1,14 @@
 package jogo;
 
 import java.util.Scanner;
-
-import assets.PocaoDeCura;
 import racas.*;
 import classes.*;
 
 public class Tabuleiro {
 
 	private boolean ativo;
-	Scanner sc = new Scanner(System.in);
-	Personagem p;
-	private PocaoDeCura pocao = new PocaoDeCura("s");
+	private Scanner sc = new Scanner(System.in);
+	private Personagem p;
 
 	public Tabuleiro() {
 		ativo = false;
@@ -21,15 +18,6 @@ public class Tabuleiro {
 	public void novoJogo() {
 		ativo = true;
 		p = criarPersonagem(p);
-		p.coletarItem(pocao);
-		p.coletarItem(pocao);
-		p.coletarItem(pocao);
-		p.coletarItem(pocao);
-		p.setExp(1000);
-		
-		
-		
-		p.setVida(3);
 		menuDoJogador();
 
 	}
