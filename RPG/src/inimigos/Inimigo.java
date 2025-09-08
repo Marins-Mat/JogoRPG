@@ -11,12 +11,13 @@ public abstract class Inimigo extends Entidade{
 	private Random rand = new Random();
 	private int verif;
 	public String toString() {
-		return getNome() + " [" + getNivel() + "]"
-				+ "Vida : " + "(" + getVida() + "/" + getVidaMax() + ")" 
-					+ " Mana : "+ "(" + getMana() + "/" + getManaMax() + ")" 
-						+ " Estamina : " + "(" + getEstaminaMax() + "/" + getEstaminaMax() + ")";
+		return getNome() + " [" + getNivel() + "] "
+				+ "Vida : " + "(" + getVida() + "/" + getVidaMax() + ")";
 	}
 	
+	public Inimigo(int nivel) {
+		setNivel(nivel);
+	}
 	public void inimigoDerrotado(Personagem p) {
 		verif = rand.nextInt(0, 31);
 		Item item;
@@ -35,6 +36,14 @@ public abstract class Inimigo extends Entidade{
 		}
 		
 
+	}
+
+	public int getExpConcedida() {
+		return expConcedida;
+	}
+
+	public void setExpConcedida(int expConcedida) {
+		this.expConcedida = expConcedida;
 	}
 	
 }

@@ -15,11 +15,16 @@ public abstract class Entidade {
 	public void causarDano(Personagem p, int dano) {
 		p.setVida(p.getVida()-dano);
 		System.out.println(p.getNome() + " recebeu " + dano + " de dano!!");
+		
 	}
 	
 	public void causarDano(Inimigo i, int dano) {
 		i.setVida(i.getVida()-dano);
+		if (i.getVida()<0) {
+			i.setVida(0);
+		}
 		System.out.println(i + " recebeu " + dano + " de dano!!");
+		
 		
 	}
 	

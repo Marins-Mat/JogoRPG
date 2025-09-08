@@ -3,12 +3,14 @@ package jogo;
 import java.util.Scanner;
 import racas.*;
 import classes.*;
+import dungeons.*;
 
 public class Tabuleiro {
 
 	private boolean ativo;
 	private Scanner sc = new Scanner(System.in);
 	private Personagem p;
+	private Dungeon dungeon;
 
 	public Tabuleiro() {
 		ativo = false;
@@ -17,12 +19,13 @@ public class Tabuleiro {
 
 	public void novoJogo() {
 		ativo = true;
-		p = criarPersonagem(p);
+		p = criarPersonagem();
+		quebrarLinhas();
 		menuDoJogador();
 
 	}
 
-	public Personagem criarPersonagem(Personagem p) {
+	public Personagem criarPersonagem() {
 		if (ativo) {
 			System.out.println("Qual o nome do seu personagem?");
 			String nome = sc.next();
@@ -67,13 +70,35 @@ public class Tabuleiro {
 			System.out.println("Jogo não está iniciado, comece um novo jogo para criar personagem");
 			return null;
 		}
+		
 
+	}
+
+	public void iniciarDungeon() {
+
+		System.out.println("Qual Dungeon deseja explorar: ");
+		System.out.println("1. Pradarias Verdajantes(Fácil) | 2. | 3. | x. sair");
+		int idDungeon = sc.nextInt();
+		switch (idDungeon) {
+		case 1:
+			dungeon = new PradariasVerdejantes();
+			break;
+		case 2:
+
+			break;
+		case 3:
+
+			break;
+		default:
+			System.out.println("Nenhuma dungeon selecionada, saindo do menu de escolhas");
+			break;
+		}
 	}
 
 	public void menuDoJogador() {
 		if (ativo) {
 			while (ativo) {
-				
+
 				System.out.println("O que você quer fazer?");
 
 				System.out.println("1. Abrir inventario | 2. Ir para Dungeon | 3. Encerrar o jogo ");
@@ -82,9 +107,12 @@ public class Tabuleiro {
 				case 1:
 					p.abrirInventario();
 					p.subirDeNivel();
+					
 					break;
 				case 2:
-					System.out.println("Ainda vai ser implementado");
+					iniciarDungeon();
+					dungeon.runDungeon(p);
+					
 					break;
 				case 3:
 					System.out.println("Encerrando jogo...");
@@ -94,12 +122,20 @@ public class Tabuleiro {
 					System.out.println("Nenhuma opção selecionada, escolha novamente");
 					break;
 				}
+				
 
 			}
 
 		} else {
 			System.out.println("Jogo não está iniciado, comece um novo jogo!!");
+			quebrarLinhas();
 		}
 
+	}
+	
+	public void quebrarLinhas() {
+		for (int i = 0; i < 10; i++) {
+			System.out.println();
+		}
 	}
 }
