@@ -20,11 +20,12 @@ public class Tabuleiro {
 	public void novoJogo() {
 		ativo = true;
 		p = criarPersonagem();
-		quebrarLinhas();
+		quebrarLinhas(10);
 		menuDoJogador();
 
 	}
 
+	
 	public Personagem criarPersonagem() {
 		if (ativo) {
 			System.out.println("Qual o nome do seu personagem?");
@@ -74,14 +75,59 @@ public class Tabuleiro {
 
 	}
 
-	public void iniciarDungeon() {
+	
+	public void menuDoJogador() {
+		if (ativo) {
+			while (ativo) {
 
+				System.out.println("O que você quer fazer?");
+
+				System.out.println("1. Abrir inventario | 2. Ir para Dungeon | 3. Descansar | 4. Encerrar o jogo ");
+				int opcao = sc.nextInt();
+				switch (opcao) {
+				case 1:
+					p.abrirInventario();
+					break;
+				case 2:
+					iniciarDungeon();
+					dungeon.runDungeon(p);
+					
+					break;
+				case 3:
+					p.descansar();
+					
+					break;
+					
+				case 4:
+					System.out.println("Encerrando o jogo...");
+					ativo = false;
+					break;
+				default:
+					System.out.println("Nenhuma opção selecionada, escolha novamente");
+					break;
+				}
+				
+				
+
+			}
+
+		} else {
+			System.out.println("Jogo não está iniciado, comece um novo jogo!!");
+			quebrarLinhas(5);
+		}
+
+	}
+	
+	
+	public void iniciarDungeon() {
+		quebrarLinhas(5);
 		System.out.println("Qual Dungeon deseja explorar: ");
+		quebrarLinhas(3);
 		System.out.println("1. Pradarias Verdajantes(Fácil) | 2. | 3. | x. sair");
 		int idDungeon = sc.nextInt();
 		switch (idDungeon) {
 		case 1:
-			dungeon = new PradariasVerdejantes();
+			dungeon = new PradariasVerdejantes(sc);
 			break;
 		case 2:
 
@@ -95,46 +141,10 @@ public class Tabuleiro {
 		}
 	}
 
-	public void menuDoJogador() {
-		if (ativo) {
-			while (ativo) {
-
-				System.out.println("O que você quer fazer?");
-
-				System.out.println("1. Abrir inventario | 2. Ir para Dungeon | 3. Encerrar o jogo ");
-				int opcao = sc.nextInt();
-				switch (opcao) {
-				case 1:
-					p.abrirInventario();
-					p.subirDeNivel();
-					
-					break;
-				case 2:
-					iniciarDungeon();
-					dungeon.runDungeon(p);
-					
-					break;
-				case 3:
-					System.out.println("Encerrando jogo...");
-					ativo = false;
-					break;
-				default:
-					System.out.println("Nenhuma opção selecionada, escolha novamente");
-					break;
-				}
-				
-
-			}
-
-		} else {
-			System.out.println("Jogo não está iniciado, comece um novo jogo!!");
-			quebrarLinhas();
-		}
-
-	}
 	
-	public void quebrarLinhas() {
-		for (int i = 0; i < 10; i++) {
+	
+	public void quebrarLinhas(int linhas) {
+		for (int i = 0; i < linhas; i++) {
 			System.out.println();
 		}
 	}

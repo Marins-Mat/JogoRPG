@@ -10,22 +10,36 @@ public abstract class Dungeon {
 	private int roundMax;
 	private int roundAtual;
 	private ArrayList<Inimigo> inimigosEmCampo = new ArrayList<>();
+	Scanner sc;
+	boolean ativo;
 	boolean fugirDungeon;
 
-	public Dungeon() {
+	public Dungeon(Scanner sc) {
 		roundAtual = 0;
+		fugirDungeon = false;
+		ativo = true;
+		this.sc=sc;
 	}
 
 	public void runDungeon(Personagem p) {
 
-		Scanner sc = new Scanner(System.in);
 		do {
 			round(p);
 			System.out.println("Você deseja fugir da dungeon?");
 			System.out.println("1. Sim | x. Não");
-			fugirDungeon = sc.nextInt() == 1 ? true : false;
-		} while (roundAtual != roundMax || !fugirDungeon);
-		sc.close();
+			
+			if (sc.nextInt() == 1) {
+				fugirDungeon = true;
+			} else {
+				fugirDungeon = false;
+			}
+			
+			encerrarDungeon(p);
+		} while (ativo);
+		
+		System.out.println("Você chegou ao round " + roundAtual + "!!");
+		
+		
 	}
 
 	public void round(Personagem p) {
@@ -49,13 +63,22 @@ public abstract class Dungeon {
 					inimigosEmCampo.get(i).causarDano(p, 5);
 					quebrarLinhas(2);
 					personagemDerrotado(p);
-					if (personagemDerrotado(p)) {
-						break;
-					}
+					encerrarDungeon(p);
 				}
 				
 			}
 
+		}
+	}
+	
+	public void encerrarDungeon(Personagem p) {
+		if (personagemDerrotado(p)||fugirDungeon||roundAtual == roundMax) {
+			System.out.println("Encerrando dungeon");
+			System.out.println(personagemDerrotado(p));
+			System.out.println(fugirDungeon);
+			System.out.println(roundAtual == roundMax);
+			ativo=false;
+			inimigosEmCampo.clear();
 		}
 	}
 
@@ -63,7 +86,6 @@ public abstract class Dungeon {
 		for (int i = 0; i < inimigosEmCampo.size(); i++) {
 			System.out.print("Inimigo " + (i + 1) + " : ");
 			System.out.println(inimigosEmCampo.get(i));
-			fugirDungeon = true;
 		}
 	}
 
@@ -78,7 +100,7 @@ public abstract class Dungeon {
 
 		if (p.getVida() <= 0) {
 			System.out.println("Você desmaiou durante a batalha!!");
-			System.out.println("Você chegou ao round " + roundAtual + "!!");
+			
 			p.setVida(1);
 			quebrarLinhas(5);
 			return true;

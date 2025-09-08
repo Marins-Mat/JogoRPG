@@ -30,7 +30,7 @@ public class Personagem extends Entidade {
 		;
 		nivel = 1;
 		exp = 0;
-		expMax = 200;
+		expMax = 50;
 		inventario = new Item[5];
 	}
 
@@ -41,6 +41,7 @@ public class Personagem extends Entidade {
 			int manaAntiga = getManaMax();
 			int estaminaAntiga = getEstaminaMax();
 			nivel++;
+			exp=0;
 			System.out.println("Parabéns, seu nivel aumentou de " + nivelAntigo + " para --> " + nivel);
 			if (nivel < 5) {
 				expMax *= 1.5;
@@ -76,6 +77,7 @@ public class Personagem extends Entidade {
 	}
 
 	public void abrirInventario() {
+		subirDeNivel();
 		informacoesMenu();
 
 		for (int i = 0; i < inventario.length; i++) {
@@ -190,7 +192,7 @@ public class Personagem extends Entidade {
 				break;
 			case 3:
 				return true;
-
+				
 			default:
 				System.out.println("Nenhuma opção escolhida, selecione novamente");
 				break;
@@ -216,6 +218,13 @@ public class Personagem extends Entidade {
 
 	}
 
+	public void descansar() {
+		subirDeNivel();
+		setVida(getVidaMax());
+		setMana(getManaMax());
+		setEstamina(getEstaminaMax());
+		System.out.println("Descansando...");
+	}
 	
 	public String toString() {
 		return getNome() + " [" + getNivel() + "] "

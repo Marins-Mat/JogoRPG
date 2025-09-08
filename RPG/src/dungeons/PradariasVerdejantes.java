@@ -5,10 +5,11 @@ import inimigos.Slime;
 import inimigos.LoboSelvagem;
 import inimigos.KingSlime;
 import java.util.Random;
+import java.util.Scanner;
 
 public class PradariasVerdejantes extends Dungeon {
-	public PradariasVerdejantes() {
-		super();
+	public PradariasVerdejantes(Scanner sc) {
+		super(sc);
 		setRoudMax(10);
 	}
 
